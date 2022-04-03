@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+
+  # Misc Storage
+  db:
+    restart: "always"
+    image: postgres:13
+    env_file:
+      - ./config/postgres.env
+    volumes:
+      - db_volume:/var/lib/postgresql/data/
+      - ./services/postgres/:/docker-entrypoint-initdb.d/
+      - ./backup/:/backup
+    ports:
+      - 5432:5432
+    networks:
+      - metanet
+  
+  elt:
+    build: .
+    volumes:
+      - ./pipelines:/./pipelines
+    networks:
+      - metanet
+    
+
+# Volumes to persist data
+volumes:
+  db_volume:
+
+networks:
+    metanet:
+        driver: bridge
