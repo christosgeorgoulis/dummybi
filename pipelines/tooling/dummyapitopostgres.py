@@ -1,7 +1,7 @@
 from .helpers import fetch
 from sqlalchemy import create_engine
 
-STAGE = 'postgresql://dummy:dummy@dummybi-main_db_1/dummyproject'
+STAGE = 'postgresql://dummy:dummy@dummybi_db_1/dummyproject'
   
 class DummyapiToPostgres():
 
