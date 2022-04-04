@@ -15,14 +15,17 @@ services:
     ports:
       - 5432:5432
     networks:
-      - metanet
+      - dummynet
   
   elt:
     build: .
+    image: eltworker
+    depends_on:
+      - db
     volumes:
-      - ./pipelines:/./pipelines
+      - ./pipelines/:/pipelines/
     networks:
-      - metanet
+      - dummynet
     
 
 # Volumes to persist data
@@ -30,5 +33,5 @@ volumes:
   db_volume:
 
 networks:
-    metanet:
+    dummynet:
         driver: bridge
