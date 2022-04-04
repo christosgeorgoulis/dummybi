@@ -9,7 +9,11 @@ COLUMNS = {
     'publishDate'   : 'publishdate',
     }
 
-def comments_pipeline():
+def main():
     # api to postgres
     fetcher = DummyapiToPostgres(model='comment', columns=COLUMNS)
     fetcher.execute()
+
+
+if __name__ == '__main__':
+    main()

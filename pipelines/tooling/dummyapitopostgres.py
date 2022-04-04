@@ -1,7 +1,7 @@
 from .helpers import fetch
 from sqlalchemy import create_engine
 
-STAGE = 'postgresql://dummy:dummy@0.0.0.0/dummyproject'
+STAGE = 'postgresql://dummy:dummy@dummybi-main_db_1/dummyproject'
   
 class DummyapiToPostgres():
 
@@ -26,4 +26,16 @@ class DummyapiToPostgres():
 
         # Load data into dw
         with self.db.connect() as connection:
-            data.to_sql(self.model, con=connection, schema='dw', if_exists='append', index=False)
+            data.to_sql(self.model, con=connection, schema='dw', if_exists='append', index=False, method=postgres_upsert)
+    
+def postgres_upsert(table, conn, keys, data_iter):
+    from sqlalchemy.dialects.postgresql import insert
+
+    data = [dict(zip(keys, row)) for row in data_iter]
+
+    insert_statement = insert(table.table).values(data)
+    upsert_statement = insert_statement.on_conflict_do_update(
+        constraint=f"{table.table.name}_pkey",
+        set_={c.key: c for c in insert_statement.excluded},
+    )
+    conn.execute(upsert_statement)

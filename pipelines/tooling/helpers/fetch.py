@@ -26,7 +26,7 @@ def dummyapi(model :str, fetching_type :str = 'preview') -> list():
 
     preview = requests.request(
         "GET", 
-        f"{DUMMYAPI_BASE}/{model}?page=1&limit=3", 
+        f"{DUMMYAPI_BASE}/{model}", 
         headers=HEADERS, data=PAYLOAD
         )
     print(preview.json())
