@@ -12,7 +12,7 @@ ADD services/eltworker/entrypoint.sh /entrypoint.sh
  
 RUN chmod +x /user_pipeline.sh /post_pipeline.sh /comment_pipeline.sh /entrypoint.sh
 
-COPY pipelines/requirements.txt ./
+COPY services/eltworker/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY pipelines .
