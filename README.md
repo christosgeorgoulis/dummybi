@@ -24,12 +24,9 @@ The pipelines are to be executed daily midnight.
 
 ## Codebase description
  ```
- | -- backup
- |    | -- backup.sql
- |
  | -- config
  |    | -- postgres.env
-
+ |
  | -- datamarts
  |    | -- comment_lag.sql
  |    | -- daily_activity_per_city.sql
@@ -54,6 +51,9 @@ The pipelines are to be executed daily midnight.
  |    |    | -- entrypoint.sh
  |    |
  |    | -- postgres
+ |         | --  backup
+ |         |     | -- backup.sql
+ |         |
  |         | -- 00_create_user.sh
  |         | -- 01_create_db.sh
  |         | -- 02_load_schema.sh
